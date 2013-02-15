@@ -1,8 +1,15 @@
 Cahoots::Application.routes.draw do
   devise_for :users
 
+  devise_scope :user do
+    get 'register', to: 'devise/registrations#new', as: :register
+    get 'login', to: 'devise/sessions#create', as: :login
+    get 'logout', to: 'devise/sessions#destroy', as: :logout
+  end
+
   resources :statuses
- root :to => 'statuses#index'
+  get 'updates', to: 'statuses#index', as: :updates
+  root :to => 'statuses#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
